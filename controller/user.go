@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"botx/controller/request"
 	"botx/controller/response"
 	"botx/repository"
 	"github.com/gin-gonic/gin"
@@ -17,5 +18,12 @@ func NewUser(repo *repository.User) *User {
 }
 
 func (ctr *User) One(c *gin.Context) (response.Data, error) {
-	return ctr.repo.FetchByID(c, 1), nil
+	reqUser := new(request.User)
+	if err := c.ShouldBind(reqUser); err != nil {
+		return nil, err
+	}
+
+	domUser := reqUser.Mapper()
+	domUser = ctr.repo.FetchByID(c, domUser.ID)
+	return domUser.Mapper(), nil
 }

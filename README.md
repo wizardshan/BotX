@@ -13,3 +13,7 @@ db.User.Create().SetAge(0).Save(context.Background())
 报错：ent: missing required field "User.mobile"
 不报错：field.String("mobile").Optional()
 不报错：field.String("mobile").Default("")
+
+
+TDD：测试驱动开发（Test-Driven Development）
+DDD：领域驱动设计（Domain Drive Design）

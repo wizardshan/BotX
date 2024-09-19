@@ -17,7 +17,9 @@ type User struct {
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
 	// HashID holds the value of the "hash_id" field.
-	HashID       string `json:"hash_id,omitempty"`
+	HashID string `json:"hash_id,omitempty"`
+	// Mobile holds the value of the "mobile" field.
+	Mobile       string `json:"mobile,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -28,7 +30,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case user.FieldID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldHashID:
+		case user.FieldHashID, user.FieldMobile:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -56,6 +58,12 @@ func (u *User) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field hash_id", values[i])
 			} else if value.Valid {
 				u.HashID = value.String
+			}
+		case user.FieldMobile:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field mobile", values[i])
+			} else if value.Valid {
+				u.Mobile = value.String
 			}
 		default:
 			u.selectValues.Set(columns[i], values[i])
@@ -95,6 +103,9 @@ func (u *User) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", u.ID))
 	builder.WriteString("hash_id=")
 	builder.WriteString(u.HashID)
+	builder.WriteString(", ")
+	builder.WriteString("mobile=")
+	builder.WriteString(u.Mobile)
 	builder.WriteByte(')')
 	return builder.String()
 }

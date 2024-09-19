@@ -11,5 +11,6 @@ func (entUser *User) Mapper() *domain.User {
 	domUser := new(domain.User)
 	domUser.ID = entUser.ID
 	domUser.HashID = entUser.HashID
+	domUser.Mobile = entUser.Mobile
 	return domUser
 }

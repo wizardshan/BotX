@@ -19,5 +19,8 @@ func NewUser(db *ent.Client) *User {
 
 func (repo *User) FetchByID(ctx context.Context, id int64) *domain.User {
 	return repo.db.User.Query().Where(user.ID(id)).FirstX(ctx).Mapper()
+}
 
+func (repo *User) FetchByHashID(ctx context.Context, hashID string) *domain.User {
+	return repo.db.User.Query().Where(user.HashID(hashID)).FirstX(ctx).Mapper()
 }

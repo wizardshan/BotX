@@ -13,6 +13,8 @@ const (
 	FieldID = "id"
 	// FieldHashID holds the string denoting the hash_id field in the database.
 	FieldHashID = "hash_id"
+	// FieldMobile holds the string denoting the mobile field in the database.
+	FieldMobile = "mobile"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 )
@@ -21,6 +23,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldHashID,
+	FieldMobile,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -36,6 +39,8 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultHashID holds the default value on creation for the "hash_id" field.
 	DefaultHashID string
+	// DefaultMobile holds the default value on creation for the "mobile" field.
+	DefaultMobile string
 )
 
 // OrderOption defines the ordering options for the User queries.
@@ -49,4 +54,9 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByHashID orders the results by the hash_id field.
 func ByHashID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldHashID, opts...).ToFunc()
+}
+
+// ByMobile orders the results by the mobile field.
+func ByMobile(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldMobile, opts...).ToFunc()
 }

@@ -17,4 +17,8 @@ func init() {
 	userDescHashID := userFields[1].Descriptor()
 	// user.DefaultHashID holds the default value on creation for the hash_id field.
 	user.DefaultHashID = userDescHashID.Default.(string)
+	// userDescMobile is the schema descriptor for mobile field.
+	userDescMobile := userFields[2].Descriptor()
+	// user.DefaultMobile holds the default value on creation for the mobile field.
+	user.DefaultMobile = userDescMobile.Default.(string)
 }

@@ -33,6 +33,20 @@ func (uc *UserCreate) SetNillableHashID(s *string) *UserCreate {
 	return uc
 }
 
+// SetMobile sets the "mobile" field.
+func (uc *UserCreate) SetMobile(s string) *UserCreate {
+	uc.mutation.SetMobile(s)
+	return uc
+}
+
+// SetNillableMobile sets the "mobile" field if the given value is not nil.
+func (uc *UserCreate) SetNillableMobile(s *string) *UserCreate {
+	if s != nil {
+		uc.SetMobile(*s)
+	}
+	return uc
+}
+
 // SetID sets the "id" field.
 func (uc *UserCreate) SetID(i int64) *UserCreate {
 	uc.mutation.SetID(i)
@@ -78,12 +92,19 @@ func (uc *UserCreate) defaults() {
 		v := user.DefaultHashID
 		uc.mutation.SetHashID(v)
 	}
+	if _, ok := uc.mutation.Mobile(); !ok {
+		v := user.DefaultMobile
+		uc.mutation.SetMobile(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (uc *UserCreate) check() error {
 	if _, ok := uc.mutation.HashID(); !ok {
 		return &ValidationError{Name: "hash_id", err: errors.New(`ent: missing required field "User.hash_id"`)}
+	}
+	if _, ok := uc.mutation.Mobile(); !ok {
+		return &ValidationError{Name: "mobile", err: errors.New(`ent: missing required field "User.mobile"`)}
 	}
 	return nil
 }
@@ -120,6 +141,10 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.HashID(); ok {
 		_spec.SetField(user.FieldHashID, field.TypeString, value)
 		_node.HashID = value
+	}
+	if value, ok := uc.mutation.Mobile(); ok {
+		_spec.SetField(user.FieldMobile, field.TypeString, value)
+		_node.Mobile = value
 	}
 	return _node, _spec
 }

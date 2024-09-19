@@ -58,6 +58,11 @@ func HashID(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldHashID, v))
 }
 
+// Mobile applies equality check predicate on the "mobile" field. It's identical to MobileEQ.
+func Mobile(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldMobile, v))
+}
+
 // HashIDEQ applies the EQ predicate on the "hash_id" field.
 func HashIDEQ(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldHashID, v))
@@ -121,6 +126,71 @@ func HashIDEqualFold(v string) predicate.User {
 // HashIDContainsFold applies the ContainsFold predicate on the "hash_id" field.
 func HashIDContainsFold(v string) predicate.User {
 	return predicate.User(sql.FieldContainsFold(FieldHashID, v))
+}
+
+// MobileEQ applies the EQ predicate on the "mobile" field.
+func MobileEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldMobile, v))
+}
+
+// MobileNEQ applies the NEQ predicate on the "mobile" field.
+func MobileNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldMobile, v))
+}
+
+// MobileIn applies the In predicate on the "mobile" field.
+func MobileIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldMobile, vs...))
+}
+
+// MobileNotIn applies the NotIn predicate on the "mobile" field.
+func MobileNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldMobile, vs...))
+}
+
+// MobileGT applies the GT predicate on the "mobile" field.
+func MobileGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldMobile, v))
+}
+
+// MobileGTE applies the GTE predicate on the "mobile" field.
+func MobileGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldMobile, v))
+}
+
+// MobileLT applies the LT predicate on the "mobile" field.
+func MobileLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldMobile, v))
+}
+
+// MobileLTE applies the LTE predicate on the "mobile" field.
+func MobileLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldMobile, v))
+}
+
+// MobileContains applies the Contains predicate on the "mobile" field.
+func MobileContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldMobile, v))
+}
+
+// MobileHasPrefix applies the HasPrefix predicate on the "mobile" field.
+func MobileHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldMobile, v))
+}
+
+// MobileHasSuffix applies the HasSuffix predicate on the "mobile" field.
+func MobileHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldMobile, v))
+}
+
+// MobileEqualFold applies the EqualFold predicate on the "mobile" field.
+func MobileEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldMobile, v))
+}
+
+// MobileContainsFold applies the ContainsFold predicate on the "mobile" field.
+func MobileContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldMobile, v))
 }
 
 // And groups predicates with the AND operator between them.

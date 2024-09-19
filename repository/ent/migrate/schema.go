@@ -12,6 +12,7 @@ var (
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
 		{Name: "hash_id", Type: field.TypeString, Default: ""},
+		{Name: "mobile", Type: field.TypeString, Default: ""},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{
