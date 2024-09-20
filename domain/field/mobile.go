@@ -10,18 +10,23 @@ type Mobile struct {
 	Value string
 }
 
-func (mobile *Mobile) Valid() error {
-	if matched, _ := regexp.MatchString(`^(1[3-9][0-9]\d{8})$`, mobile.Value); !matched {
+func (mobile *Mobile) Build(value string) error {
+	mobile.Value = value
+	return mobile.valid()
+}
+
+func (mobile *Mobile) BuildOmit(value string) error {
+	if validate.IsEmpty(value) {
+		return nil
+	}
+	return mobile.Build(value)
+}
+
+func (mobile *Mobile) valid() error {
+	if matched := regexp.MustCompile(`^(1[3-9][0-9]\d{8})$`).MatchString(mobile.Value); !matched {
 		return fmt.Errorf(validate.FormatMsg, mobile.Name())
 	}
 	return nil
-}
-
-func (mobile *Mobile) ValidOmit() error {
-	if validate.IsEmpty(mobile.Value) {
-		return nil
-	}
-	return mobile.Valid()
 }
 
 func (mobile *Mobile) Name() string {

@@ -13,17 +13,16 @@ type Password struct {
 	HashValue string
 }
 
-func (password *Password) New(value string, reValue string) (err error) {
+func (password *Password) Build(value string, reValue string) error {
 	password.Value, password.ReValue = value, reValue
-	if err = password.Valid(); err != nil {
-		return
+	if err := password.valid(); err != nil {
+		return err
 	}
-
-	password.HashValue, err = crypt.EncodePassword(password.Value)
-	return
+	password.HashValue = crypt.EncodePassword(password.Value)
+	return nil
 }
 
-func (password *Password) Valid() error {
+func (password *Password) valid() error {
 	if !validate.IsEqual(password.Value, password.ReValue) {
 		return errors.New("两次密码不一致")
 	}
@@ -35,7 +34,6 @@ func (password *Password) Valid() error {
 	if !validate.MaxLen(password.Value, password.MaxLen()) {
 		return fmt.Errorf(validate.MaxLenMsg, password.Name(), password.MaxLen())
 	}
-
 	return nil
 }
 

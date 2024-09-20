@@ -14,6 +14,6 @@ func (entUser *User) Mapper() *domain.User {
 	domUser.Mobile.Value = entUser.Mobile
 	domUser.Password.Value = entUser.Password
 	domUser.Age.Value = entUser.Age
-	domUser.Level.New(entUser.Level)
+	domUser.Level.Build(entUser.Level)
 	return domUser
 }

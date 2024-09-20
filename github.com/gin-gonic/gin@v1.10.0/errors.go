@@ -125,9 +125,9 @@ func (a errorMsgs) Last() *Error {
 // Errors returns an array with all the error messages.
 // Example:
 //
-//	c.Error(errors.New("first"))
-//	c.Error(errors.New("second"))
-//	c.Error(errors.New("third"))
+//	c.Error(errors.Build("first"))
+//	c.Error(errors.Build("second"))
+//	c.Error(errors.Build("third"))
 //	c.Errors.Errors() // == []string{"first", "second", "third"}
 func (a errorMsgs) Errors() []string {
 	if len(a) == 0 {

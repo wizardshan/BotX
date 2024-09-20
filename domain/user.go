@@ -17,12 +17,15 @@ type User struct {
 	Level    user.Level
 }
 
-func (domUser *User) Mapper() *response.User {
-	respUser := new(response.User)
-	respUser.HashID = domUser.HashID.Value
-	respUser.Mobile = domUser.Mobile.Value
-	respUser.Age = domUser.Age.Value
-	respUser.Level = domUser.Level.Value
-	respUser.LevelDesc = domUser.Level.Desc
-	return respUser
+func (user *User) Mapper() *response.User {
+	if user == nil {
+		return nil
+	}
+	resp := new(response.User)
+	resp.HashID = user.HashID.Value
+	resp.Mobile = user.Mobile.Value
+	resp.Age = user.Age.Value
+	resp.Level = user.Level.Value
+	resp.LevelDesc = user.Level.Desc
+	return resp
 }

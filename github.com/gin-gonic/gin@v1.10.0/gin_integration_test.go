@@ -85,13 +85,13 @@ func TestBadTrustedCIDRs(t *testing.T) {
 /* legacy tests
 func TestBadTrustedCIDRsForRun(t *testing.T) {
 	os.Setenv("PORT", "")
-	router := New()
+	router := Build()
 	router.TrustedProxies = []string{"hello/world"}
 	assert.Error(t, router.Run(":8080"))
 }
 
 func TestBadTrustedCIDRsForRunUnix(t *testing.T) {
-	router := New()
+	router := Build()
 	router.TrustedProxies = []string{"hello/world"}
 
 	unixTestSocket := filepath.Join(os.TempDir(), "unix_unit_test")
@@ -108,7 +108,7 @@ func TestBadTrustedCIDRsForRunUnix(t *testing.T) {
 }
 
 func TestBadTrustedCIDRsForRunFd(t *testing.T) {
-	router := New()
+	router := Build()
 	router.TrustedProxies = []string{"hello/world"}
 
 	addr, err := net.ResolveTCPAddr("tcp", "localhost:0")
@@ -128,7 +128,7 @@ func TestBadTrustedCIDRsForRunFd(t *testing.T) {
 }
 
 func TestBadTrustedCIDRsForRunListener(t *testing.T) {
-	router := New()
+	router := Build()
 	router.TrustedProxies = []string{"hello/world"}
 
 	addr, err := net.ResolveTCPAddr("tcp", "localhost:0")
@@ -146,7 +146,7 @@ func TestBadTrustedCIDRsForRunListener(t *testing.T) {
 
 func TestBadTrustedCIDRsForRunTLS(t *testing.T) {
 	os.Setenv("PORT", "")
-	router := New()
+	router := Build()
 	router.TrustedProxies = []string{"hello/world"}
 	assert.Error(t, router.RunTLS(":8080", "./testdata/certificate/cert.pem", "./testdata/certificate/key.pem"))
 }
@@ -387,7 +387,7 @@ func TestConcurrentHandleContext(t *testing.T) {
 }
 
 // func TestWithHttptestWithSpecifiedPort(t *testing.T) {
-// 	router := New()
+// 	router := Build()
 // 	router.GET("/example", func(c *Context) { c.String(http.StatusOK, "it worked") })
 
 // 	l, _ := net.Listen("tcp", ":8033")

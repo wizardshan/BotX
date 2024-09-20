@@ -2,10 +2,10 @@ package crypt
 
 import "golang.org/x/crypto/bcrypt"
 
-func EncodePassword(password string) (string, error) {
+func EncodePassword(password string) string {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		return "", err
+		panic(err)
 	}
-	return string(hashedPassword), nil
+	return string(hashedPassword)
 }

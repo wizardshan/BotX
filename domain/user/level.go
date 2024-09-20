@@ -18,7 +18,7 @@ type Level struct {
 	Desc  string
 }
 
-func (level *Level) New(value int) error {
+func (level *Level) Build(value int) error {
 	level.Value = value
 	if err := level.Valid(); err != nil {
 		return err
@@ -28,18 +28,18 @@ func (level *Level) New(value int) error {
 	return nil
 }
 
+func (level *Level) BuildOmit(value int) error {
+	if validate.IsEmpty(value) {
+		return nil
+	}
+	return level.Build(value)
+}
+
 func (level *Level) Valid() error {
 	if !mapx.HasKey(level.DescMapping(), level.Value) {
 		return fmt.Errorf("%s枚举值不存在", level.Name())
 	}
 	return nil
-}
-
-func (level *Level) ValidOmit() error {
-	if validate.IsEmpty(level.Value) {
-		return nil
-	}
-	return level.Valid()
 }
 
 func (level *Level) Min() int {

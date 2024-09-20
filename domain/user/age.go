@@ -9,8 +9,19 @@ type Age struct {
 	Value int
 }
 
-func (age *Age) Valid() error {
+func (age *Age) Build(value int) error {
+	age.Value = value
+	return age.valid()
+}
 
+func (age *Age) BuildOmit(value int) error {
+	if validate.IsEmpty(value) {
+		return nil
+	}
+	return age.Build(value)
+}
+
+func (age *Age) valid() error {
 	if !validate.Min(age.Value, age.Min()) {
 		return fmt.Errorf(validate.MinMsg, age.Name(), age.Min())
 	}
@@ -18,15 +29,7 @@ func (age *Age) Valid() error {
 	if !validate.Max(age.Value, age.Max()) {
 		return fmt.Errorf(validate.MaxMsg, age.Name(), age.Max())
 	}
-
 	return nil
-}
-
-func (age *Age) ValidOmit() error {
-	if validate.IsEmpty(age.Value) {
-		return nil
-	}
-	return age.Valid()
 }
 
 func (age *Age) Min() int {
