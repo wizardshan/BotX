@@ -47,6 +47,40 @@ func (uc *UserCreate) SetNillableMobile(s *string) *UserCreate {
 	return uc
 }
 
+// SetPassword sets the "password" field.
+func (uc *UserCreate) SetPassword(s string) *UserCreate {
+	uc.mutation.SetPassword(s)
+	return uc
+}
+
+// SetAge sets the "age" field.
+func (uc *UserCreate) SetAge(i int) *UserCreate {
+	uc.mutation.SetAge(i)
+	return uc
+}
+
+// SetNillableAge sets the "age" field if the given value is not nil.
+func (uc *UserCreate) SetNillableAge(i *int) *UserCreate {
+	if i != nil {
+		uc.SetAge(*i)
+	}
+	return uc
+}
+
+// SetLevel sets the "level" field.
+func (uc *UserCreate) SetLevel(i int) *UserCreate {
+	uc.mutation.SetLevel(i)
+	return uc
+}
+
+// SetNillableLevel sets the "level" field if the given value is not nil.
+func (uc *UserCreate) SetNillableLevel(i *int) *UserCreate {
+	if i != nil {
+		uc.SetLevel(*i)
+	}
+	return uc
+}
+
 // SetID sets the "id" field.
 func (uc *UserCreate) SetID(i int64) *UserCreate {
 	uc.mutation.SetID(i)
@@ -96,6 +130,14 @@ func (uc *UserCreate) defaults() {
 		v := user.DefaultMobile
 		uc.mutation.SetMobile(v)
 	}
+	if _, ok := uc.mutation.Age(); !ok {
+		v := user.DefaultAge
+		uc.mutation.SetAge(v)
+	}
+	if _, ok := uc.mutation.Level(); !ok {
+		v := user.DefaultLevel
+		uc.mutation.SetLevel(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -105,6 +147,15 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.Mobile(); !ok {
 		return &ValidationError{Name: "mobile", err: errors.New(`ent: missing required field "User.mobile"`)}
+	}
+	if _, ok := uc.mutation.Password(); !ok {
+		return &ValidationError{Name: "password", err: errors.New(`ent: missing required field "User.password"`)}
+	}
+	if _, ok := uc.mutation.Age(); !ok {
+		return &ValidationError{Name: "age", err: errors.New(`ent: missing required field "User.age"`)}
+	}
+	if _, ok := uc.mutation.Level(); !ok {
+		return &ValidationError{Name: "level", err: errors.New(`ent: missing required field "User.level"`)}
 	}
 	return nil
 }
@@ -145,6 +196,18 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.Mobile(); ok {
 		_spec.SetField(user.FieldMobile, field.TypeString, value)
 		_node.Mobile = value
+	}
+	if value, ok := uc.mutation.Password(); ok {
+		_spec.SetField(user.FieldPassword, field.TypeString, value)
+		_node.Password = value
+	}
+	if value, ok := uc.mutation.Age(); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt, value)
+		_node.Age = value
+	}
+	if value, ok := uc.mutation.Level(); ok {
+		_spec.SetField(user.FieldLevel, field.TypeInt, value)
+		_node.Level = value
 	}
 	return _node, _spec
 }

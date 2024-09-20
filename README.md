@@ -17,3 +17,16 @@ db.User.Create().SetAge(0).Save(context.Background())
 
 TDD：测试驱动开发（Test-Driven Development）
 DDD：领域驱动设计（Domain Drive Design）
+
+HashID 
+db => domain 直接赋值
+request => domain 1、查询需要检查 hashID =>id 2、创建需要 id => hashID
+
+Password
+db => domain 直接赋值
+request => domain 需要检查
+
+Level
+db => domain 需要获得
+request => domain 需要检查
+

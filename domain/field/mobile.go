@@ -1,12 +1,29 @@
 package field
 
-import "regexp"
+import (
+	"botx/pkg/validate"
+	"fmt"
+	"regexp"
+)
 
-type MobileField struct {
-	Mobile string `binding:"required,number,mobile"`
+type Mobile struct {
+	Value string
 }
 
-func (f *MobileField) ValidateMobile() bool {
-	matched, _ := regexp.MatchString(`^(1[3-9][0-9]\d{8})$`, f.Mobile)
-	return matched
+func (mobile *Mobile) Valid() error {
+	if matched, _ := regexp.MatchString(`^(1[3-9][0-9]\d{8})$`, mobile.Value); !matched {
+		return fmt.Errorf(validate.FormatMsg, mobile.Name())
+	}
+	return nil
+}
+
+func (mobile *Mobile) ValidOmit() error {
+	if validate.IsEmpty(mobile.Value) {
+		return nil
+	}
+	return mobile.Valid()
+}
+
+func (mobile *Mobile) Name() string {
+	return "手机号码"
 }

@@ -9,8 +9,11 @@ func (entUser *User) Mapper() *domain.User {
 		return nil
 	}
 	domUser := new(domain.User)
-	domUser.ID = entUser.ID
-	domUser.HashID = entUser.HashID
-	domUser.Mobile = entUser.Mobile
+	domUser.ID.Value = entUser.ID
+	domUser.HashID.Value = entUser.HashID
+	domUser.Mobile.Value = entUser.Mobile
+	domUser.Password.Value = entUser.Password
+	domUser.Age.Value = entUser.Age
+	domUser.Level.New(entUser.Level)
 	return domUser
 }

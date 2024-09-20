@@ -1,54 +1,60 @@
 package user
 
-import "database/sql/driver"
-
-type Level int
-
-const (
-	Unknown Level = iota
-	Low
-	High
+import (
+	"botx/pkg/mapx"
+	"botx/pkg/validate"
+	"fmt"
 )
 
-func (p Level) String() string {
-	switch p {
-	case Low:
-		return "LOW"
-	case High:
-		return "HIGH"
-	default:
-		return "UNKNOWN"
+const (
+	LevelNormal   = 0
+	LevelSilver   = 10
+	LevelGold     = 20
+	LevelPlatinum = 30
+)
+
+type Level struct {
+	Value int
+	Desc  string
+}
+
+func (level *Level) New(value int) error {
+	level.Value = value
+	if err := level.Valid(); err != nil {
+		return err
 	}
+
+	level.Desc = level.DescMapping()[level.Value]
+	return nil
 }
 
-// Values provides list valid values for Enum.
-func (Level) Values() []string {
-	return []string{Unknown.String(), Low.String(), High.String()}
-}
-
-// Value provides the DB a string from int.
-func (p Level) Value() (driver.Value, error) {
-	return p.String(), nil
-}
-
-// Scan tells our code how to read the enum into our type.
-func (p *Level) Scan(val any) error {
-	var s string
-	switch v := val.(type) {
-	case nil:
-		return nil
-	case string:
-		s = v
-	case []uint8:
-		s = string(v)
-	}
-	switch s {
-	case "LOW":
-		*p = Low
-	case "HIGH":
-		*p = High
-	default:
-		*p = Unknown
+func (level *Level) Valid() error {
+	if !mapx.HasKey(level.DescMapping(), level.Value) {
+		return fmt.Errorf("%s枚举值不存在", level.Name())
 	}
 	return nil
+}
+
+func (level *Level) ValidOmit() error {
+	if validate.IsEmpty(level.Value) {
+		return nil
+	}
+	return level.Valid()
+}
+
+func (level *Level) Min() int {
+	return 1
+}
+
+func (level *Level) DescMapping() map[int]string {
+	return map[int]string{
+		LevelNormal:   "普通",
+		LevelSilver:   "白银",
+		LevelGold:     "黄金",
+		LevelPlatinum: "铂金",
+	}
+}
+
+func (level *Level) Name() string {
+	return "等级"
 }

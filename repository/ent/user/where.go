@@ -63,6 +63,21 @@ func Mobile(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldMobile, v))
 }
 
+// Password applies equality check predicate on the "password" field. It's identical to PasswordEQ.
+func Password(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldPassword, v))
+}
+
+// Age applies equality check predicate on the "age" field. It's identical to AgeEQ.
+func Age(v int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldAge, v))
+}
+
+// Level applies equality check predicate on the "level" field. It's identical to LevelEQ.
+func Level(v int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldLevel, v))
+}
+
 // HashIDEQ applies the EQ predicate on the "hash_id" field.
 func HashIDEQ(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldHashID, v))
@@ -191,6 +206,151 @@ func MobileEqualFold(v string) predicate.User {
 // MobileContainsFold applies the ContainsFold predicate on the "mobile" field.
 func MobileContainsFold(v string) predicate.User {
 	return predicate.User(sql.FieldContainsFold(FieldMobile, v))
+}
+
+// PasswordEQ applies the EQ predicate on the "password" field.
+func PasswordEQ(v string) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldPassword, v))
+}
+
+// PasswordNEQ applies the NEQ predicate on the "password" field.
+func PasswordNEQ(v string) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldPassword, v))
+}
+
+// PasswordIn applies the In predicate on the "password" field.
+func PasswordIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldIn(FieldPassword, vs...))
+}
+
+// PasswordNotIn applies the NotIn predicate on the "password" field.
+func PasswordNotIn(vs ...string) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldPassword, vs...))
+}
+
+// PasswordGT applies the GT predicate on the "password" field.
+func PasswordGT(v string) predicate.User {
+	return predicate.User(sql.FieldGT(FieldPassword, v))
+}
+
+// PasswordGTE applies the GTE predicate on the "password" field.
+func PasswordGTE(v string) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldPassword, v))
+}
+
+// PasswordLT applies the LT predicate on the "password" field.
+func PasswordLT(v string) predicate.User {
+	return predicate.User(sql.FieldLT(FieldPassword, v))
+}
+
+// PasswordLTE applies the LTE predicate on the "password" field.
+func PasswordLTE(v string) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldPassword, v))
+}
+
+// PasswordContains applies the Contains predicate on the "password" field.
+func PasswordContains(v string) predicate.User {
+	return predicate.User(sql.FieldContains(FieldPassword, v))
+}
+
+// PasswordHasPrefix applies the HasPrefix predicate on the "password" field.
+func PasswordHasPrefix(v string) predicate.User {
+	return predicate.User(sql.FieldHasPrefix(FieldPassword, v))
+}
+
+// PasswordHasSuffix applies the HasSuffix predicate on the "password" field.
+func PasswordHasSuffix(v string) predicate.User {
+	return predicate.User(sql.FieldHasSuffix(FieldPassword, v))
+}
+
+// PasswordEqualFold applies the EqualFold predicate on the "password" field.
+func PasswordEqualFold(v string) predicate.User {
+	return predicate.User(sql.FieldEqualFold(FieldPassword, v))
+}
+
+// PasswordContainsFold applies the ContainsFold predicate on the "password" field.
+func PasswordContainsFold(v string) predicate.User {
+	return predicate.User(sql.FieldContainsFold(FieldPassword, v))
+}
+
+// AgeEQ applies the EQ predicate on the "age" field.
+func AgeEQ(v int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldAge, v))
+}
+
+// AgeNEQ applies the NEQ predicate on the "age" field.
+func AgeNEQ(v int) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldAge, v))
+}
+
+// AgeIn applies the In predicate on the "age" field.
+func AgeIn(vs ...int) predicate.User {
+	return predicate.User(sql.FieldIn(FieldAge, vs...))
+}
+
+// AgeNotIn applies the NotIn predicate on the "age" field.
+func AgeNotIn(vs ...int) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldAge, vs...))
+}
+
+// AgeGT applies the GT predicate on the "age" field.
+func AgeGT(v int) predicate.User {
+	return predicate.User(sql.FieldGT(FieldAge, v))
+}
+
+// AgeGTE applies the GTE predicate on the "age" field.
+func AgeGTE(v int) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldAge, v))
+}
+
+// AgeLT applies the LT predicate on the "age" field.
+func AgeLT(v int) predicate.User {
+	return predicate.User(sql.FieldLT(FieldAge, v))
+}
+
+// AgeLTE applies the LTE predicate on the "age" field.
+func AgeLTE(v int) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldAge, v))
+}
+
+// LevelEQ applies the EQ predicate on the "level" field.
+func LevelEQ(v int) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldLevel, v))
+}
+
+// LevelNEQ applies the NEQ predicate on the "level" field.
+func LevelNEQ(v int) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldLevel, v))
+}
+
+// LevelIn applies the In predicate on the "level" field.
+func LevelIn(vs ...int) predicate.User {
+	return predicate.User(sql.FieldIn(FieldLevel, vs...))
+}
+
+// LevelNotIn applies the NotIn predicate on the "level" field.
+func LevelNotIn(vs ...int) predicate.User {
+	return predicate.User(sql.FieldNotIn(FieldLevel, vs...))
+}
+
+// LevelGT applies the GT predicate on the "level" field.
+func LevelGT(v int) predicate.User {
+	return predicate.User(sql.FieldGT(FieldLevel, v))
+}
+
+// LevelGTE applies the GTE predicate on the "level" field.
+func LevelGTE(v int) predicate.User {
+	return predicate.User(sql.FieldGTE(FieldLevel, v))
+}
+
+// LevelLT applies the LT predicate on the "level" field.
+func LevelLT(v int) predicate.User {
+	return predicate.User(sql.FieldLT(FieldLevel, v))
+}
+
+// LevelLTE applies the LTE predicate on the "level" field.
+func LevelLTE(v int) predicate.User {
+	return predicate.User(sql.FieldLTE(FieldLevel, v))
 }
 
 // And groups predicates with the AND operator between them.

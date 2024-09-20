@@ -21,4 +21,12 @@ func init() {
 	userDescMobile := userFields[2].Descriptor()
 	// user.DefaultMobile holds the default value on creation for the mobile field.
 	user.DefaultMobile = userDescMobile.Default.(string)
+	// userDescAge is the schema descriptor for age field.
+	userDescAge := userFields[4].Descriptor()
+	// user.DefaultAge holds the default value on creation for the age field.
+	user.DefaultAge = userDescAge.Default.(int)
+	// userDescLevel is the schema descriptor for level field.
+	userDescLevel := userFields[5].Descriptor()
+	// user.DefaultLevel holds the default value on creation for the level field.
+	user.DefaultLevel = userDescLevel.Default.(int)
 }

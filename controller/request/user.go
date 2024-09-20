@@ -2,16 +2,19 @@ package request
 
 import (
 	"botx/domain"
-	"botx/domain/user"
 )
 
 type User struct {
-	user.HashIDField
+	HashID string
 }
 
-func (req *User) Mapper() *domain.User {
+func (reqUser *User) Mapper() (*domain.User, error) {
 	domUser := new(domain.User)
-	domUser.HashID = req.HashID
-	domUser.ID, _ = domUser.DecodeID()
-	return domUser
+	domUser.HashID.Value = reqUser.HashID
+	var err error
+	if err = domUser.HashID.Decode(); err != nil {
+		return nil, err
+	}
+	domUser.ID.Value = domUser.HashID.ID
+	return domUser, nil
 }

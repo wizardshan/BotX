@@ -19,7 +19,13 @@ type User struct {
 	// HashID holds the value of the "hash_id" field.
 	HashID string `json:"hash_id,omitempty"`
 	// Mobile holds the value of the "mobile" field.
-	Mobile       string `json:"mobile,omitempty"`
+	Mobile string `json:"mobile,omitempty"`
+	// Password holds the value of the "password" field.
+	Password string `json:"-"`
+	// Age holds the value of the "age" field.
+	Age int `json:"age,omitempty"`
+	// Level holds the value of the "level" field.
+	Level        int `json:"level,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -28,9 +34,9 @@ func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case user.FieldID:
+		case user.FieldID, user.FieldAge, user.FieldLevel:
 			values[i] = new(sql.NullInt64)
-		case user.FieldHashID, user.FieldMobile:
+		case user.FieldHashID, user.FieldMobile, user.FieldPassword:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -64,6 +70,24 @@ func (u *User) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field mobile", values[i])
 			} else if value.Valid {
 				u.Mobile = value.String
+			}
+		case user.FieldPassword:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field password", values[i])
+			} else if value.Valid {
+				u.Password = value.String
+			}
+		case user.FieldAge:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field age", values[i])
+			} else if value.Valid {
+				u.Age = int(value.Int64)
+			}
+		case user.FieldLevel:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field level", values[i])
+			} else if value.Valid {
+				u.Level = int(value.Int64)
 			}
 		default:
 			u.selectValues.Set(columns[i], values[i])
@@ -106,6 +130,14 @@ func (u *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("mobile=")
 	builder.WriteString(u.Mobile)
+	builder.WriteString(", ")
+	builder.WriteString("password=<sensitive>")
+	builder.WriteString(", ")
+	builder.WriteString("age=")
+	builder.WriteString(fmt.Sprintf("%v", u.Age))
+	builder.WriteString(", ")
+	builder.WriteString("level=")
+	builder.WriteString(fmt.Sprintf("%v", u.Level))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -9,14 +9,20 @@ import (
 type Users []*User
 
 type User struct {
-	field.IDField
-	user.HashIDField
-	field.MobileField
+	ID       field.ID
+	HashID   user.HashID
+	Mobile   field.Mobile
+	Password user.Password
+	Age      user.Age
+	Level    user.Level
 }
 
-func (dom *User) Mapper() *response.User {
-	resp := new(response.User)
-	resp.HashID = dom.HashID
-	resp.Mobile = dom.Mobile
-	return resp
+func (domUser *User) Mapper() *response.User {
+	respUser := new(response.User)
+	respUser.HashID = domUser.HashID.Value
+	respUser.Mobile = domUser.Mobile.Value
+	respUser.Age = domUser.Age.Value
+	respUser.Level = domUser.Level.Value
+	respUser.LevelDesc = domUser.Level.Desc
+	return respUser
 }

@@ -55,6 +55,62 @@ func (uu *UserUpdate) SetNillableMobile(s *string) *UserUpdate {
 	return uu
 }
 
+// SetPassword sets the "password" field.
+func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
+	uu.mutation.SetPassword(s)
+	return uu
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uu *UserUpdate) SetNillablePassword(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetPassword(*s)
+	}
+	return uu
+}
+
+// SetAge sets the "age" field.
+func (uu *UserUpdate) SetAge(i int) *UserUpdate {
+	uu.mutation.ResetAge()
+	uu.mutation.SetAge(i)
+	return uu
+}
+
+// SetNillableAge sets the "age" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableAge(i *int) *UserUpdate {
+	if i != nil {
+		uu.SetAge(*i)
+	}
+	return uu
+}
+
+// AddAge adds i to the "age" field.
+func (uu *UserUpdate) AddAge(i int) *UserUpdate {
+	uu.mutation.AddAge(i)
+	return uu
+}
+
+// SetLevel sets the "level" field.
+func (uu *UserUpdate) SetLevel(i int) *UserUpdate {
+	uu.mutation.ResetLevel()
+	uu.mutation.SetLevel(i)
+	return uu
+}
+
+// SetNillableLevel sets the "level" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableLevel(i *int) *UserUpdate {
+	if i != nil {
+		uu.SetLevel(*i)
+	}
+	return uu
+}
+
+// AddLevel adds i to the "level" field.
+func (uu *UserUpdate) AddLevel(i int) *UserUpdate {
+	uu.mutation.AddLevel(i)
+	return uu
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
@@ -102,6 +158,21 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := uu.mutation.Mobile(); ok {
 		_spec.SetField(user.FieldMobile, field.TypeString, value)
 	}
+	if value, ok := uu.mutation.Password(); ok {
+		_spec.SetField(user.FieldPassword, field.TypeString, value)
+	}
+	if value, ok := uu.mutation.Age(); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt, value)
+	}
+	if value, ok := uu.mutation.AddedAge(); ok {
+		_spec.AddField(user.FieldAge, field.TypeInt, value)
+	}
+	if value, ok := uu.mutation.Level(); ok {
+		_spec.SetField(user.FieldLevel, field.TypeInt, value)
+	}
+	if value, ok := uu.mutation.AddedLevel(); ok {
+		_spec.AddField(user.FieldLevel, field.TypeInt, value)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
@@ -147,6 +218,62 @@ func (uuo *UserUpdateOne) SetNillableMobile(s *string) *UserUpdateOne {
 	if s != nil {
 		uuo.SetMobile(*s)
 	}
+	return uuo
+}
+
+// SetPassword sets the "password" field.
+func (uuo *UserUpdateOne) SetPassword(s string) *UserUpdateOne {
+	uuo.mutation.SetPassword(s)
+	return uuo
+}
+
+// SetNillablePassword sets the "password" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePassword(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetPassword(*s)
+	}
+	return uuo
+}
+
+// SetAge sets the "age" field.
+func (uuo *UserUpdateOne) SetAge(i int) *UserUpdateOne {
+	uuo.mutation.ResetAge()
+	uuo.mutation.SetAge(i)
+	return uuo
+}
+
+// SetNillableAge sets the "age" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableAge(i *int) *UserUpdateOne {
+	if i != nil {
+		uuo.SetAge(*i)
+	}
+	return uuo
+}
+
+// AddAge adds i to the "age" field.
+func (uuo *UserUpdateOne) AddAge(i int) *UserUpdateOne {
+	uuo.mutation.AddAge(i)
+	return uuo
+}
+
+// SetLevel sets the "level" field.
+func (uuo *UserUpdateOne) SetLevel(i int) *UserUpdateOne {
+	uuo.mutation.ResetLevel()
+	uuo.mutation.SetLevel(i)
+	return uuo
+}
+
+// SetNillableLevel sets the "level" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableLevel(i *int) *UserUpdateOne {
+	if i != nil {
+		uuo.SetLevel(*i)
+	}
+	return uuo
+}
+
+// AddLevel adds i to the "level" field.
+func (uuo *UserUpdateOne) AddLevel(i int) *UserUpdateOne {
+	uuo.mutation.AddLevel(i)
 	return uuo
 }
 
@@ -226,6 +353,21 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if value, ok := uuo.mutation.Mobile(); ok {
 		_spec.SetField(user.FieldMobile, field.TypeString, value)
+	}
+	if value, ok := uuo.mutation.Password(); ok {
+		_spec.SetField(user.FieldPassword, field.TypeString, value)
+	}
+	if value, ok := uuo.mutation.Age(); ok {
+		_spec.SetField(user.FieldAge, field.TypeInt, value)
+	}
+	if value, ok := uuo.mutation.AddedAge(); ok {
+		_spec.AddField(user.FieldAge, field.TypeInt, value)
+	}
+	if value, ok := uuo.mutation.Level(); ok {
+		_spec.SetField(user.FieldLevel, field.TypeInt, value)
+	}
+	if value, ok := uuo.mutation.AddedLevel(); ok {
+		_spec.AddField(user.FieldLevel, field.TypeInt, value)
 	}
 	_node = &User{config: uuo.config}
 	_spec.Assign = _node.assignValues

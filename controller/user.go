@@ -23,7 +23,10 @@ func (ctr *User) One(c *gin.Context) (response.Data, error) {
 		return nil, err
 	}
 
-	domUser := reqUser.Mapper()
-	domUser = ctr.repo.FetchByID(c, domUser.ID)
+	domUser, err := reqUser.Mapper()
+	if err != nil {
+		return nil, err
+	}
+	domUser = ctr.repo.FetchByID(c, domUser.ID.Value)
 	return domUser.Mapper(), nil
 }

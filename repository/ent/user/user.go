@@ -15,6 +15,12 @@ const (
 	FieldHashID = "hash_id"
 	// FieldMobile holds the string denoting the mobile field in the database.
 	FieldMobile = "mobile"
+	// FieldPassword holds the string denoting the password field in the database.
+	FieldPassword = "password"
+	// FieldAge holds the string denoting the age field in the database.
+	FieldAge = "age"
+	// FieldLevel holds the string denoting the level field in the database.
+	FieldLevel = "level"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 )
@@ -24,6 +30,9 @@ var Columns = []string{
 	FieldID,
 	FieldHashID,
 	FieldMobile,
+	FieldPassword,
+	FieldAge,
+	FieldLevel,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -41,6 +50,10 @@ var (
 	DefaultHashID string
 	// DefaultMobile holds the default value on creation for the "mobile" field.
 	DefaultMobile string
+	// DefaultAge holds the default value on creation for the "age" field.
+	DefaultAge int
+	// DefaultLevel holds the default value on creation for the "level" field.
+	DefaultLevel int
 )
 
 // OrderOption defines the ordering options for the User queries.
@@ -59,4 +72,19 @@ func ByHashID(opts ...sql.OrderTermOption) OrderOption {
 // ByMobile orders the results by the mobile field.
 func ByMobile(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMobile, opts...).ToFunc()
+}
+
+// ByPassword orders the results by the password field.
+func ByPassword(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPassword, opts...).ToFunc()
+}
+
+// ByAge orders the results by the age field.
+func ByAge(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAge, opts...).ToFunc()
+}
+
+// ByLevel orders the results by the level field.
+func ByLevel(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLevel, opts...).ToFunc()
 }

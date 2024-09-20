@@ -1,11 +1,9 @@
 package response
 
-import (
-	"botx/domain/field"
-	"botx/domain/user"
-)
-
 type User struct {
-	user.HashIDField
-	field.MobileField
+	HashID    string
+	Mobile    string
+	Age       int
+	Level     int
+	LevelDesc string
 }

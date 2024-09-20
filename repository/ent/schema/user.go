@@ -16,12 +16,9 @@ func (User) Fields() []ent.Field {
 		field.Int64("id"),
 		field.String("hash_id").Default(""),
 		field.String("mobile").Default(""),
-		//field.Int("age").Optional().Positive(),
-		//field.Bool("active").Default(true),
-		//
-		//field.String("nickname").NotEmpty().MinLen(2).MaxLen(10),
-		//field.String("password").Sensitive(),
-		//field.Enum("level").GoType(user.Level(0)),
+		field.String("password").Sensitive(),
+		field.Int("age").Default(0),
+		field.Int("level").Default(0),
 	}
 }
 

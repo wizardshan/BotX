@@ -13,6 +13,9 @@ var (
 		{Name: "id", Type: field.TypeInt64, Increment: true},
 		{Name: "hash_id", Type: field.TypeString, Default: ""},
 		{Name: "mobile", Type: field.TypeString, Default: ""},
+		{Name: "password", Type: field.TypeString},
+		{Name: "age", Type: field.TypeInt, Default: 0},
+		{Name: "level", Type: field.TypeInt, Default: 0},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{
